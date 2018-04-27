@@ -11,8 +11,14 @@ app.use(morgan('dev'));
 app.use(express.static(__dirname + '/stylesheets'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 3000;
+app.use('/wiki', require('./routes/wiki'));
+app.use(require('./routes/user'));
 
+app.get('/', (req, res) => {
+    res.redirect('/wiki');
+});
+
+const port = 3000;
 
 const init = async () => {
   // this drops all tables then recreates them based on our JS definitions

@@ -28,6 +28,16 @@ const Page = db.define('page', {
   }
 });
 
+
+Page.beforeValidate(()=> {
+  let t = this.title
+  function generateSlug(title) {
+    return title.replace(/\s+/g, '_').replace(/\W/g, '');
+  }
+  return generateSlug(t);
+
+})
+
 const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
